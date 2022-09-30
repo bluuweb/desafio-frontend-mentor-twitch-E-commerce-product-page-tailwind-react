@@ -6,11 +6,26 @@ export default (props) => {
     const [products, setProducts] = useState([]);
 
     const addProduct = (product) => {
-        setProducts((prev) => prev.push(product));
+        if (products.length === 0) {
+            return setProducts([product]);
+        }
+
+        const cartProduct = products.map((item) => {
+            if (item.id === product.id) {
+                return {
+                    ...item,
+                    quantity: item.quantity + product.quantity,
+                };
+            } else {
+                return item;
+            }
+        });
+
+        setProducts(cartProduct);
     };
 
-    const deleteProduct = (products) => {
-        setProducts((prev) => prev.filter((item) => item.id !== products.id));
+    const deleteProduct = (id) => {
+        setProducts((prev) => prev.filter((item) => item.id !== id));
     };
 
     return (

@@ -6,12 +6,25 @@ import AvatarImage from "@/assets/images/image-avatar.png";
 import MenuIcon from "@/components/icons/MenuIcon";
 import CartIcon from "@/components/icons/CartIcon";
 import CloseIcon from "@/components/icons/CloseIcon";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+
 import NavLinkHeader from "@/components/header/NavLinkHeader";
 import CartDetails from "./cart/CartDetails";
 
 const IndexHeader = () => {
     const [isOpenNavbar, setIsOpenNavbar] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
+
+    const { products } = useContext(CartContext);
+
+    const quantityProductsCart = () => {
+        const quantity = products.reduce(
+            (acc, current) => acc + current.quantity,
+            0
+        );
+        return quantity;
+    };
 
     return (
         <>
@@ -48,10 +61,15 @@ const IndexHeader = () => {
                 </nav>
                 <div className="flex gap-4">
                     <button
-                        className=""
+                        className="relative"
                         onClick={() => setIsOpenCart(!isOpenCart)}
                     >
                         <CartIcon className="hover:fill-black" />
+                        {quantityProductsCart() > 0 && (
+                            <span className="absolute top-0 right-0 translate-x-1 rounded-full bg-orange-primary px-1 text-xs text-white">
+                                {quantityProductsCart()}
+                            </span>
+                        )}
                     </button>
                     <img src={AvatarImage} alt="" className="w-10" />
                 </div>
