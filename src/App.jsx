@@ -4,12 +4,12 @@ import IndexProduct from "./components/product/IndexProduct";
 import CartProvider from "./context/CartContext";
 
 const App = () => {
-    return (
-        <CartProvider>
-            <IndexHeader />
-            <IndexProduct />
-        </CartProvider>
-    );
+  return (
+    <CartProvider>
+      <IndexHeader />
+      <IndexProduct />
+    </CartProvider>
+  );
 };
 
 export default App;
